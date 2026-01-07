@@ -1,4 +1,5 @@
 # HybridPACK_Inverter_OpenLoop_Arduino
+Project still in preparation phase.
 
 # Motivation and why Arduino:
 Motivation of this plattform and datasharing was to support open research activities. <br>
