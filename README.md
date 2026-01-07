@@ -4,10 +4,10 @@
 Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. Motivation of this plattform and datasharing was to support open research activities.
 
 # Needed Toolchain SW:
-  Matlab/Simulink R2022b (tested version) \n
-    requires installed
-    MATLAB Support Package for Arduino Hardware    
-    Simulink Support Package for Arduino Hardware
+  Matlab/Simulink R2022b (tested version) <br>
+    requires installed <br>
+    MATLAB Support Package for Arduino Hardware <br> 
+    Simulink Support Package for Arduino Hardware <br>
 
 # Toolchain HW:
   Arduino Nano IoT 33
