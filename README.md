@@ -1,15 +1,15 @@
 # HybridPACK_Inverter_OpenLoop_Arduino
 #
 # Motivation and why Arduino:
-# Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. Motivation of this plattform and datasharing was to support open research activities.
-#
+Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. Motivation of this plattform and datasharing was to support open research activities.
+
 # Needed Toolchain SW:
-  Matlab/Simulink R2022b (tested version)
+  Matlab/Simulink R2022b (tested version) \n
     requires installed
     MATLAB Support Package for Arduino Hardware    
     Simulink Support Package for Arduino Hardware
 
-Toolchain HW:
+# Toolchain HW:
   Arduino Nano IoT 33
   Infineon Arduino Interface PCB: EV PCB INT; SP006038346
   Compatible Gate Driver Boards (just some examples):
