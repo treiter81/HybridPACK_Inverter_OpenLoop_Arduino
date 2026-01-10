@@ -6,12 +6,12 @@ Attention: No support by Infineon Technologies. Motivation of this platform was 
 Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. 
 
 # Get Started:
-open "Inverter_Arduino.slx" Simulink model <br>
-check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff <br>
-Under Hardware/Deployment => click Build, Beloy & Start <br>
-Arduino will be flashed and started <br>
-Open GUI. Ensure that PC is in same WIFI than Arduino. <br>
-Control the Inverter open loop. Use a 12V/25W power supply for seamless operation <br>
+* open "Inverter_Arduino.slx" Simulink model <br>
+* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff <br>
+* Under Hardware/Deployment => click Build, Beloy & Start <br>
+* Arduino will be flashed and started <br>
+* Open GUI. Ensure that PC is in same WIFI than Arduino. <br>
+* Control the Inverter open loop. Use a 12V/25W power supply for seamless operation <br>
 
 
 # Needed Toolchain SW:
