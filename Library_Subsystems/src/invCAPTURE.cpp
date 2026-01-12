@@ -5,9 +5,12 @@
 #define Pin_DATA5 15
 #define Pin_DATA6 7
 
-extern "C" uint16_T invCAPTUREinitdone = 0;
+static const uint32_t GD_ADC_THRESHOLD = 10000U; //below this value is DATA (tempsense)
 
-extern "C" volatile uint32_T invTempsense[2] = {0,0};
+extern "C" uint16_T invCAPTUREinitdone = 0;
+extern "C" volatile uint16_T invTempsense[2] = {0,0};
+extern "C" volatile uint16_T invGDStatus[2] = {0,0};
+
 
 
 extern "C" void invCapture_init(void) //ADC init with Clock6
@@ -143,7 +146,7 @@ extern "C" void invCapture_init(void) //ADC init with Clock6
 }
 
 
-extern "C" void TC4_Handler(void)                                   // Interrupt Service Routine (ISR) for timer TC4
+/*extern "C" void TC4_Handler(void)                                   // Interrupt Service Routine (ISR) for timer TC4
 {
   uint32_t flags = TC4->COUNT16.INTFLAG.reg;                        //load flags into local variable
   if (flags & TC_INTFLAG_MC1)                                       // Check for match counter 1 (MC1) interrupt
@@ -167,15 +170,55 @@ extern "C" void TC5_Handler(void)                                    // Interrup
       {invTempsense[1] = Data6_PulseW;}    
   }
 }
-
-
-extern "C" uint16_T invCapture_readData5(void) 
+*/
+extern "C" void TC4_Handler(void)
 {
-  return (uint16_t)invTempsense[0];
+    if (TC4->COUNT16.INTFLAG.reg & TC_INTFLAG_MC1)
+    {
+        TC4->COUNT16.INTFLAG.reg = TC_INTFLAG_MC1;
+        uint32_t pulse = TC4->COUNT16.CC[1].reg;
+        if (pulse < GD_ADC_THRESHOLD)
+        {
+            invTempsense[0] = (uint16_T)pulse;
+        }
+        else
+        {
+            invGDStatus[0] = (uint16_T)pulse;
+        }
+
+    }
 }
 
-extern "C" uint16_T invCapture_readData6(void) 
+
+extern "C" void TC5_Handler(void)
 {
-  return (uint16_t)invTempsense[1];
+    if (TC5->COUNT16.INTFLAG.reg & TC_INTFLAG_MC1)
+    {
+        TC5->COUNT16.INTFLAG.reg = TC_INTFLAG_MC1;
+        uint32_t pulse = TC5->COUNT16.CC[1].reg;
+        if (pulse < GD_ADC_THRESHOLD)
+        {
+            invTempsense[1] = (uint16_T)pulse;
+        }
+        else
+        {
+            invGDStatus[1] = (uint16_T)pulse;
+        }
+
+    }
 }
+
+
+
+extern "C" uint16_T invCapture_readData5(void)
+{
+    return invTempsense[0]; 
+}
+
+extern "C" uint16_T invCapture_readData6(void)
+{
+    return invTempsense[1];
+}
+
+
 
