@@ -1,5 +1,5 @@
 # HybridPACK_Inverter_OpenLoop_Arduino
-
+Open loop inverter testing. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino. The Arduino will reset gate drivers and start with softstart ramp the open loop inverter operation. Supported Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs. PWM resolution 10ns (PWM module is overclocked to 100MHz, spec 96MHz).
 
 # Motivation and why Arduino:
 Attention: No support by Infineon Technologies. Motivation of this platform was to support open research activities. <br>
@@ -15,28 +15,29 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 
 
 # Needed Toolchain SW:
-*  Matlab/Simulink R2022b (tested version) <br>
-    requires installed <br>
-*    MATLAB Support Package for Arduino Hardware <br> 
-*    Simulink Support Package for Arduino Hardware <br>
+* Matlab/Simulink R2022b (tested version) <br>
+
+requires installed <br>
+* MATLAB Support Package for Arduino Hardware <br> 
+* Simulink Support Package for Arduino Hardware <br>
 
 # Toolchain HW:
-*  Arduino Nano IoT 33 <br>
-*  WIFI Network <br>
-*  Infineon Arduino Interface PCB: EV PCB INT; SP006038346 <br>
-  <br>
-  Compatible Gate Driver Boards (just some examples): <br>
-*    EV GB HPD2 FU; SP006070794 (for Si/SiC Fusion Power Modules) <br>
-*    EV GB HPD2 SIC;	SP006056143 (for SiC Power Modules) <br>
-*    EV GB HPD2 SI 08; SP006038350 (for 750V IGBT Power Modules) <br>
-*    EV GB HPD2 SI 12; SP006038348 (for 1200V IGBT Power Modules) <br>
-  <br>
-  Compatible Power Modules (just some examples): <br>
-*    FS980R08A7F32B (Si/SiC Fusion Power Module 780V/980A) <br>
-*    FS01MR08A8MA2LBC (SiC MOSFET Power Module 750V/1mOhm) <br>
-*    FS02MR12A8MA2B (SiC MOSFET Power Module 1200V/2mOhm) <br>
-*    FS1150R08A8P3B (IGBT Power Module 750V/1150A) <br>
-*    FS520R12A8P1LB (IGBT Power Module 1200V/520A) <br>
-    
-  
-    
+* Arduino Nano IoT 33 <br>
+* WIFI Network <br>
+* Infineon Arduino Interface PCB: EV PCB INT; SP006038346 <br>
+
+Compatible Gate Driver Boards (just some examples): <br>
+* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-FU" target="_blank">EV GB HPD2 FU; SP006070794 (for Si/SiC Fusion Power Modules)</a>  <br>
+* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SIC" target="_blank">EV GB HPD2 SIC;	SP006056143 (for SiC Power Modules)</a>  <br>
+* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SI-08" target="_blank">EV GB HPD2 SI 08; SP006038350 (for 750V IGBT Power Modules)</a>  <br>
+* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SI-12" target="_blank">EV GB HPD2 SI 12; SP006038348 (for 1200V IGBT Power Modules)</a>  <br> 
+
+
+
+Compatible Power Modules (just some examples): <br>
+* FS980R08A7F32B (Si/SiC Fusion Power Module 780V/980A) <br>
+* <a href="https://www.infineon.com/part/FS01MR08A8MA2LBC" target="_blank">FS01MR08A8MA2LBC (SiC MOSFET Power Module 750V/1mOhm)</a>  <br>
+* <a href="https://www.infineon.com/part/FS02MR12A8MA2B" target="_blank">FS02MR12A8MA2B (SiC MOSFET Power Module 1200V/2mOhm)</a>  <br>
+* <a href="https://www.infineon.com/part/FS1150R08A8P3LBC" target="_blank">FS1150R08A8P3B (IGBT Power Module 750V/1150A) </a>  <br> 
+* <a href="https://www.infineon.com/part/FS520R12A8P1LB" target="_blank">FS520R12A8P1LB (IGBT Power Module 1200V/520A)</a>  <br>
+* many more
