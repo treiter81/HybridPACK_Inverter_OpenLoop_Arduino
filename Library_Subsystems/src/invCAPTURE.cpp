@@ -7,10 +7,7 @@
 
 extern "C" uint16_T invCAPTUREinitdone = 0;
 
-extern "C" uint16_T Data5_PulseW = 0;
-extern "C" uint16_T Data6_PulseW = 0;
-
-extern "C" uint16_T invTempsense[2] = {0, 0};
+extern "C" volatile uint32_T invTempsense[2] = {0,0};
 
 
 extern "C" void invCapture_init(void) //ADC init with Clock6
@@ -146,45 +143,39 @@ extern "C" void invCapture_init(void) //ADC init with Clock6
 }
 
 
-extern "C" void TC4_Handler(void)                                    // Interrupt Service Routine (ISR) for timer TC4
-{  
-  if (TC4->COUNT16.INTFLAG.bit.MC1)                   // Check for match counter 1 (MC1) interrupt
+extern "C" void TC4_Handler(void)                                   // Interrupt Service Routine (ISR) for timer TC4
+{
+  uint32_t flags = TC4->COUNT16.INTFLAG.reg;                        //load flags into local variable
+  if (flags & TC_INTFLAG_MC1)                                       // Check for match counter 1 (MC1) interrupt
   {
-    //todo clear intflag
-
-    Data5_PulseW = TC4->COUNT16.CC[1].reg;           // Copy the pulse-width
-    if (Data5_PulseW < 10000)
-    {
-      invTempsense[0] = Data5_PulseW;
-    }
+      uint32_t Data5_PulseW = TC4->COUNT16.CC[1].reg;     // Copy the pulse-width
+      TC4->COUNT16.INTFLAG.reg = TC_INTFLAG_MC1;                    //clear interrupt
+      if (Data5_PulseW < 10000)
+      {invTempsense[0] = Data5_PulseW;}    
   }
 }
 
 
-extern "C" void TC5_Handler(void)                                    // Interrupt Service Routine (ISR) for timer TC4
+extern "C" void TC5_Handler(void)                                    // Interrupt Service Routine (ISR) for timer TC5
 {
- 
-  if (TC5->COUNT16.INTFLAG.bit.MC1)                   // Check for match counter 1 (MC1) interrupt
+  uint32_t flags = TC5->COUNT16.INTFLAG.reg;                        //load flags into local variable
+  if (flags & TC_INTFLAG_MC1)                                       // Check for match counter 1 (MC1) interrupt
   {
-    //todo clear intflag
-
-    Data6_PulseW = TC5->COUNT16.CC[1].reg;           // Copy the pulse-width
-    if (Data6_PulseW < 10000)
-    {
-      invTempsense[1] = Data6_PulseW;
-    }
+      uint32_t Data6_PulseW = TC5->COUNT16.CC[1].reg;               // Copy the pulse-width
+      TC5->COUNT16.INTFLAG.reg = TC_INTFLAG_MC1;                    //clear interrupt
+      if (Data6_PulseW < 10000)
+      {invTempsense[1] = Data6_PulseW;}    
   }
 }
 
 
 extern "C" uint16_T invCapture_readData5(void) 
 {
-  return (invTempsense[0]);
+  return (uint16_t)invTempsense[0];
 }
-
 
 extern "C" uint16_T invCapture_readData6(void) 
 {
-  return (invTempsense[1]);
+  return (uint16_t)invTempsense[1];
 }
 
