@@ -1,6 +1,9 @@
 # HybridPACK_Inverter_OpenLoop_Arduino
 Open loop inverter testing. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino. The Arduino will reset gate drivers and start with softstart ramp the open loop inverter operation. Supported Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs. PWM resolution 10ns (PWM module is overclocked to 100MHz, spec 96MHz).
 
+Illustrative Setup (AI generated with support of some real pictures from Lab Setup)
+![Overview Inverter OpenLoop Testing](/Pictures/Overview_AIgen.jpg)
+
 # Motivation and why Arduino:
 Attention: No support by Infineon Technologies. Motivation of this platform was to support open research activities. <br>
 Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. 
@@ -41,3 +44,11 @@ Compatible Power Modules (just some examples): <br>
 * <a href="https://www.infineon.com/part/FS1150R08A8P3LBC" target="_blank">FS1150R08A8P3B (IGBT Power Module 750V/1150A) </a>  <br> 
 * <a href="https://www.infineon.com/part/FS520R12A8P1LB" target="_blank">FS520R12A8P1LB (IGBT Power Module 1200V/520A)</a>  <br>
 * many more
+
+Information to the Gate Drivers: <br>
+*  <a href="https://www.infineon.com/part/1EDI3035AS" target="_blank">SiC MOSFET and Si/SiC Fusion optimized Gate Driver 1EDI3035AS</a>  <br> 
+*  <a href="https://www.infineon.com/part/1EDI3025AS" target="_blank">IGBT optimized Gate Driver 1EDI3025AS</a>  <br>
+
+
+
+
