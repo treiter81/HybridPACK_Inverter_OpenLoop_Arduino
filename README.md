@@ -18,6 +18,9 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 
 
 # Needed Toolchain SW:
+Can be used without MATLAB/Simulink => use precomiled GUI. This GUI includes also precompiled bin file, which can be flashed. <br>
+But recommended with MATLAB/Simulink:
+  
 * Matlab/Simulink R2022b (tested version) <br>
 
 requires installed <br>
