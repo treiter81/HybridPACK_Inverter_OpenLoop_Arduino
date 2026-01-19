@@ -8,12 +8,25 @@ Illustrative Setup (AI generated with support of some real pictures from Lab Set
 Attention: No support by Infineon Technologies. Motivation of this platform was to support open research activities. <br>
 Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. 
 
-# Get Started:
-* open "Inverter_Arduino.slx" Simulink model <br>
-* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff <br>
-* Under Hardware/Deployment => click Build, Beloy & Start <br>
-* Arduino will be flashed and started <br>
-* Open GUI. Ensure that PC is in same WIFI than Arduino. <br>
+# Get Started (fast track without MATLAB/Simulink):
+* install the precompiled GUI (only Windows) from folder "CompiledWIN_noMATLAB"
+* start the GUI
+* connect Arduino NANO IoT 33 via USB and click the "FlashTool Arduino" button in GUI. Just follow the instructions.
+* disonnect USB cable after flash process!
+* establish a WIFI hotspot with SSID: FUSION; PW: ffffffff
+* connect the PC (running the GUI) to the WIFI. Click reset button on Arduino.
+* after about 5..10s both PC and Arduino should be in WIFI. You can now click Connect button in GUI and start
+* Control the Inverter open loop. Use a 12V/25W power supply for seamless operation
+  
+
+# Get Started (MATLAB/Simulink):
+* open "Inverter_Arduino.slx" Simulink model
+* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff
+* connect Arduino NANO IoT 33 via USB
+* under Hardware/Deployment => click Build, Beloy & Start
+* Arduino will be flashed and started
+* disonnect USB cable after flash process!
+* open GUI. Ensure that PC is in same WIFI than Arduino. You can now click Connect button in GUI and start
 * Control the Inverter open loop. Use a 12V/25W power supply for seamless operation <br>
 
 
