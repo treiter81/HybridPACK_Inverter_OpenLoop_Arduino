@@ -5,11 +5,11 @@
 //#define ADCdebug // can be only used with free SPI pin 13
 
 #define invADCchannels 4
-extern "C" uint16_T invADCresult[invADCchannels] = {0xFF, 0xFF, 0xFF, 0xFF};
-extern "C" uint8_T invADCsequencer[invADCchannels] = {ADC_INPUTCTRL_MUXPOS_PIN17, ADC_INPUTCTRL_MUXPOS_PIN18, ADC_INPUTCTRL_MUXPOS_PIN0, ADC_INPUTCTRL_MUXPOS_PIN1};
+extern "C" volatile uint16_T invADCresult[invADCchannels] = {0xFF, 0xFF, 0xFF, 0xFF};
+extern "C" volatile uint8_T invADCsequencer[invADCchannels] = {ADC_INPUTCTRL_MUXPOS_PIN17, ADC_INPUTCTRL_MUXPOS_PIN18, ADC_INPUTCTRL_MUXPOS_PIN0, ADC_INPUTCTRL_MUXPOS_PIN1};
 
-extern "C" uint8_T invADCchannel = 0;
-extern "C" uint16_T invADCcounter = 0;
+extern "C" volatile uint8_T invADCchannel = 0;
+extern "C" volatile uint16_T invADCcounter = 0;
 
 extern "C" uint8_T invADCinitdone = 0;
 
@@ -149,8 +149,23 @@ extern "C" uint16_T invADC_readcounter(void)
 }
 
 
+extern "C" void ADC_Handler(void)              //read ADC result when ready and switches to the next sequencer channel
+{
+  if (ADC->INTFLAG.reg & ADC_INTFLAG_RESRDY)
+  {
+    ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+        
+    invADCresult[invADCchannel] = ADC->RESULT.reg;            //store ADC result
+    invADCcounter++;                                          //next channel
+    invADCchannel = invADCcounter & 0x0003;                   //use only last bits avoid if else for speed
+
+    while(ADC->STATUS.bit.SYNCBUSY);                          // Wait for synchronization
+    ADC->INPUTCTRL.bit.MUXPOS = invADCsequencer[invADCchannel];// Set the analog input to next input pin
+   }
+}
 
 
+/*
 extern "C" void ADC_Handler(void)              //read ADC result when ready and switches to the next sequencer channel
 {
   if (ADC->INTFLAG.bit.RESRDY == 1)
@@ -166,3 +181,4 @@ extern "C" void ADC_Handler(void)              //read ADC result when ready and 
     while(ADC->STATUS.bit.SYNCBUSY);                          // Wait for synchronization
   }
 }
+*/
