@@ -1,3 +1,14 @@
+# WARNING: HIGH VOLTAGE HAZARD
+*DANGER: This equipment involves lethal voltages. For use by qualified, trained personnel only in a controlled laboratory environment with appropriate safety measures.
+
+*USER RESPONSIBILITY: The user assumes all risk and sole responsibility for operation.
+
+*LIMITATION OF LIABILITY: No claims shall be made for any injury to persons or damage to equipment/property.
+
+*MANDATORY STARTUP: Regardless of experience, start with a 12V supply only to verify operation and familiarize yourself with the system before applying high voltage.
+
+*USE AT YOUR OWN RISK.
+
 # HybridPACK_Inverter_OpenLoop_Arduino
 Open loop inverter testing. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino. The Arduino will reset gate drivers and start with softstart ramp the open loop inverter operation. Supported Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs. PWM resolution 10ns (PWM module is overclocked to 100MHz, spec 96MHz).
 
