@@ -41,3 +41,12 @@ extern "C" void invPWM_dutycycle(uint16_T period, uint16_T Du, uint16_T Dv, uint
       #endif                    
   }    
 }
+
+static inline void Pin0TX_set_fast(uint8_t pegel) {
+    // pegel != 0 becomes 1, pegel == 0 becomes 0
+    uint32_t offset = (pegel != 0); 
+    
+    // Calculate the address: OUTCLR address + (0 or 4 bytes)
+    // Writing to OUTCLR + 4 is equivalent to writing to OUTSET
+    *(&PORT_IOBUS->Group[1].OUTCLR.reg + offset) = PORT_PB22;
+}
