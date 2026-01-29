@@ -1,8 +1,6 @@
-classdef invCAPTURE < matlab.System & coder.ExternalDependency
-    % Inverter IO Capture for Arudino Nano 33 IoT
-    % Read DATA channels for temperature sensor 
-
-    
+classdef invIOfastRX1_TOGGLE < matlab.System & coder.ExternalDependency
+    % Inverter IO Pins for Arudino Nano 33 IoT
+    % TX0, RX1      
     properties
         % Public, tunable properties.
     end
@@ -17,7 +15,7 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
     
     methods
         % Constructor
-        function obj = invCAPTURE(varargin)
+        function obj = invIOfastRX1_TOGGLE(varargin)
             % Support name-value pair arguments when constructing the object.
             setProperties(obj,nargin,varargin{:});
         end
@@ -25,42 +23,29 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
     
     methods (Access=protected)
 
-        function setupImpl(obj) %#ok<MANU>
+        function setupImpl(obj) 
             if isempty(coder.target)
                 % Place simulation setup code here
             else
                 % Call C-function implementing device initialization
-                 coder.cinclude('invClockGen.h');
-                 coder.cinclude('invCAPTURE.h');
-
-                 coder.ceval('invClockGen_init');
-                 coder.ceval('invCapture_init'); 
+                 coder.cinclude('invIOfast.h');
+                 coder.ceval('Pin1RX_init');
 
             end
         end
         
-        function [DATA5,DATA6] = stepImpl(obj)
-            coder.inline("always");
-            DATA5 = uint16(0);
-            DATA6 = uint16(0);
+        function stepImpl(obj) 
                 
             if isempty(coder.target)
                 % Place simulation output code here 
-                DATA5 = uint16(0);
-                DATA6 = uint16(0);
-            
             else
                 % Call C-function implementing device output
-                DATA5 = coder.ceval('getTEMPSENSEADC',uint8(0));
-                DATA6 = coder.ceval('getTEMPSENSEADC',uint8(1));
-
-                %DATA5 = coder.ceval('invCapture_readData5');                
-                %DATA6 = coder.ceval('invCapture_readData6');                
-                
+                coder.inline("always");
+                coder.ceval('Pin1RX_toggle');                
             end
         end
         
-        function releaseImpl(obj) %#ok<MANU>
+        function releaseImpl(obj) 
             if isempty(coder.target)
                 % Place simulation termination code here
             else
@@ -77,32 +62,24 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
         end
         
         function num = getNumOutputsImpl(~)
-            num = 2;
+            num = 0;
         end
         
-        function varargout = isOutputFixedSizeImpl(~,~)
-            varargout{1} = true;
-            varargout{2} = true;
-            
-        end
+  %      function varargout = isOutputFixedSizeImpl(~,~)
+  %          varargout{1} = true;
+   %     end
         
-        function varargout = isOutputComplexImpl(~)
-            varargout{1} = false;
-            varargout{2} = false;
-            
-        end
+ %       function varargout = isOutputComplexImpl(~)
+ %           varargout{1} = false;
+ %       end
         
-        function varargout = getOutputSizeImpl(~)
-            varargout{1} = [1,1];
-            varargout{2} = [1,1];
-            
-        end
+%        function varargout = getOutputSizeImpl(~)
+%            varargout{1} = [1,1];
+%        end
 
-        function varargout = getOutputDataTypeImpl(~)
-            varargout{1} = 'uint16';
-            varargout{2} = 'uint16';
-           
-        end
+%        function varargout = getOutputDataTypeImpl(~)
+%            varargout{1} = 'uint8';
+%        end
         
         function flag = isInputSizeMutableImpl(~,~)
             flag = false;
@@ -112,16 +89,16 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
             flag = false;
         end
         
-        function validateInputsImpl(~)
-            if isempty(coder.target)
-                % Run input validation only in Simulation
-
-            end
-        end
+%         function validateInputsImpl(~, pegel)
+%             if isempty(coder.target)
+%                 % Run input validation only in Simulation
+%                 validateattributes(pegel,{'uint8'},{'scalar'},'','IO Level');
+%             end
+%         end
         
         function icon = getIconImpl(~)
             % Define a string as the icon for the System block in Simulink.
-            icon = 'Inverter TC Capture Arduino Nano 33 IoT';
+            icon = 'Arduino Nano 33 IoT \n IO 1 RX FAST TOGGLE';
         end
     end
     
@@ -137,7 +114,7 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
     
     methods (Static)
         function name = getDescriptiveName()
-            name = 'Inverter TC Capture Read';
+            name = 'IO 1 RX FAST TOGGLE';
         end
         
         function b = isSupportedContext(context)
@@ -145,15 +122,16 @@ classdef invCAPTURE < matlab.System & coder.ExternalDependency
         end
         
         function updateBuildInfo(buildInfo, context)
-            if context.isCodeGenTarget('rtw')
-                % Update buildInfo
-                srcDir = fullfile(fileparts(mfilename('fullpath')),'src'); 
+            
+            if context.isCodeGenTarget('rtw')              
+                % Update buildInfo for Arduino Code
+                srcDir = fullfile(fileparts(mfilename('fullpath')),'src');
                 includeDir = fullfile(fileparts(mfilename('fullpath')),'include');
                 addIncludePaths(buildInfo,includeDir);
                 % Use the following API's to add include files, sources and
                 % linker flags
                 %addIncludeFiles(buildInfo,'source.h',includeDir);
-                addSourceFiles(buildInfo,'invCAPTURE.cpp',srcDir);
+                addSourceFiles(buildInfo,'invIOfast.cpp',srcDir);
                 %addLinkFlags(buildInfo,{'-lSource'});
                 %addLinkObjects(buildInfo,'sourcelib.a',srcDir);
                 %addCompileFlags(buildInfo,{'-D_DEBUG=1'});

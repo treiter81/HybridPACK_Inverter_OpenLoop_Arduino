@@ -43,19 +43,31 @@ classdef invADC < matlab.System & coder.ExternalDependency
             end
         end
         
-        function [ADC_IphU,ADC_IphV,ADC_IphW,ADC_IrefW] = stepImpl(obj)  
+        function [ADC_IphU,ADC_IphV,ADC_IphW,ADC_IrefW] = stepImpl(obj)
+            coder.inline("always");
+            ADC_IphU = uint16(0);
+            ADC_IphV = uint16(0);
+            ADC_IphW = uint16(0);
+            ADC_IrefW = uint16(0);
+            
+            if isempty(coder.target)
+                % Place simulation output code here
                 ADC_IphU = uint16(0);
                 ADC_IphV = uint16(0);
                 ADC_IphW = uint16(0);
                 ADC_IrefW = uint16(0);
-            if isempty(coder.target)
-                % Place simulation output code here 
+
             else
                 % Call C-function implementing device output
-                ADC_IphU = coder.ceval('invADC_read',uint8(0));                
-                ADC_IphV = coder.ceval('invADC_read',uint8(1));                
-                ADC_IphW = coder.ceval('invADC_read',uint8(2));                
-                ADC_IrefW = coder.ceval('invADC_read',uint8(3));                
+                ADC_IphU = coder.ceval('getADCVAL',uint8(0));
+                ADC_IphV = coder.ceval('getADCVAL',uint8(1));                
+                ADC_IphW = coder.ceval('getADCVAL',uint8(2));                
+                ADC_IrefW = coder.ceval('getADCVAL',uint8(3));                
+
+                %ADC_IphU = coder.ceval('invADC_read',uint8(0));                
+                %ADC_IphV = coder.ceval('invADC_read',uint8(1));                
+                %ADC_IphW = coder.ceval('invADC_read',uint8(2));                
+                %ADC_IrefW = coder.ceval('invADC_read',uint8(3));                
             end
         end
         
