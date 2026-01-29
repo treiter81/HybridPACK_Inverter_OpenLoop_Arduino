@@ -185,7 +185,6 @@ extern "C" void TC4_Handler(void)
         {
             invGDStatus[0] = (uint16_T)pulse;
         }
-
     }
 }
 
@@ -204,7 +203,6 @@ extern "C" void TC5_Handler(void)
         {
             invGDStatus[1] = (uint16_T)pulse;
         }
-
     }
 }
 

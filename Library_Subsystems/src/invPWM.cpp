@@ -192,6 +192,8 @@ extern "C" void invPWM_stop(void)
 
 extern "C" void invPWM_dutycycle(uint16_T period, uint16_T Du, uint16_T Dv, uint16_T Dw) //Duty Cycle: DutyCycle[3] = {D_phU,D_phV,D_phW};
 {
+
+  /*
   REG_TCC0_CCB0 = Du;
   while (TCC0->SYNCBUSY.bit.CCB0);  
 
@@ -200,7 +202,16 @@ extern "C" void invPWM_dutycycle(uint16_T period, uint16_T Du, uint16_T Dv, uint
   
   REG_TCC0_CCB3 = Dw;
   while (TCC0->SYNCBUSY.bit.CCB3);  
+  */
+  // Writes to CCB registers without waiting
+  TCC0->CCB[0].reg = Du;
+  TCC0->CCB[2].reg = Dv;
+  TCC0->CCB[3].reg = Dw;
+  // Sync all CCB bits at once
+  while (TCC0->SYNCBUSY.reg & (TCC_SYNCBUSY_CCB0 | TCC_SYNCBUSY_CCB2 | TCC_SYNCBUSY_CCB3));
 
+  
+/*
   if (invPWMperiod != period)                         //Update Period only when necessary
   {
       invPWMperiod = period;
@@ -228,12 +239,40 @@ extern "C" void invPWM_dutycycle(uint16_T period, uint16_T Du, uint16_T Dv, uint
         while (TCC1->SYNCBUSY.bit.CCB1);                    // Wait for synchronization
         TCC1->CTRLBSET.bit.CMD = 0x3;                   // Force Update of Double Buffer Register
       }
-          
+
+      */
+     if (__builtin_expect(invPWMperiod != period, 0)) // Optimization: Hint that frequency rarely changes
+     {
+        invPWMperiod = period;
+        
+        TCC0->PERB.reg = period;                        // Set the frequency of the PWM on TCC0
+        while (TCC0->SYNCBUSY.bit.PERB);
+        TCC0->CTRLBSET.reg = TCC_CTRLBSET_CMD_UPDATE;   // Force Update of Double Buffer Register
+
+      // Optimization: Pre-calculate shifted values
+      uint32_t shiftVal = (period > 1500) ? 1 : 2;
+      uint32_t newPer = (period << shiftVal) - 1;
+      uint32_t newCC  = newPer - 99; // (period << shiftVal) - 100
+
+      // Update TCC1
+      TCC1->PERB.reg = newPer;
+      TCC1->CCB[1].reg = newCC;
+      while (TCC1->SYNCBUSY.reg & (TCC_SYNCBUSY_PERB | TCC_SYNCBUSY_CCB1));
+      
+      TCC1->CTRLBSET.reg = TCC_CTRLBSET_CMD_UPDATE;
+
+      // Phase sync TCC0 and TCC1
+      TCC0->CTRLBSET.reg = TCC_CTRLBSET_CMD_READSYNC;
+      while (TCC0->SYNCBUSY.bit.COUNT);
+      TCC1->COUNT.reg = TCC0->COUNT.reg;
+      while (TCC1->SYNCBUSY.bit.COUNT); // Ensure TCC1 count is set before exiting
+                
         
       TCC0->CTRLBSET.reg = TCC_CTRLBSET_CMD_READSYNC;     //phase sync the TCC0 PWM with the TCC1 Trigger
       while (TCC0->SYNCBUSY.bit.COUNT);
       TCC1->COUNT.reg = (TCC0->COUNT.reg);
 
+      
       #ifdef debug
         Serial.println("PWM Frequency Changed");        
         Serial.println(period);
