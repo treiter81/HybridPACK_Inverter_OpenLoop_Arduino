@@ -17,6 +17,8 @@ void TC5_Handler(void);             // Interrupt Service Routine (ISR) for timer
 uint16_T invCapture_readData5(void); //read ADC data DATA5
 uint16_T invCapture_readData6(void); //read ADC data DATA6
 
+extern volatile uint16_T invTempsense[2];
+#define getTEMPSENSEADC(idx) (invTempsense[(idx)])
 
 #ifdef __cplusplus
 }

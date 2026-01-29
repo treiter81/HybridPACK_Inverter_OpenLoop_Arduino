@@ -1,3 +1,5 @@
+//#include "rtwtypes.h"
+
 #define uint32_T uint32_t
 #define uint16_T uint16_t
 #define uint8_T uint8_t
@@ -22,11 +24,14 @@
 extern "C" {
 #endif
 
+void DMA_enable(uint8_t enable);
+void setup_DMA(void);
+
 void invSPI_init(void);  //SPI init
 
 uint16_t readwriteSPI(uint8_t data,uint8_t byte_pos);  //SPI Read 16bit data and return result from last SPI Transfers
 
-void SERCOM1_Handler(void); //the interrupt routine to transfer 2 bytes
+//void SERCOM1_Handler(void); //the interrupt routine to transfer 2 bytes
 
 #ifdef __cplusplus
 }

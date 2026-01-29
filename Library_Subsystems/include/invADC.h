@@ -6,6 +6,8 @@
 #ifndef _INVADC_ARDUINO_H_
 #define _INVADC_ARDUINO_H_
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -21,6 +23,10 @@ uint16_T invADC_read(uint8_T channel);   //read buffered ADC results
 uint16_T invADC_readcounter(void);        //testfunction to see how many triggers occured
 
 void ADC_Handler(void);            //read ADC result when ready and switches to the next sequencer channel
+
+#define invADCchannels 4
+extern volatile uint16_T invADCresult[invADCchannels];
+#define getADCVAL(idx) (invADCresult[(idx)])
 
 #ifdef __cplusplus
 }
