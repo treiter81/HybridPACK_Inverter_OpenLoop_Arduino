@@ -8,8 +8,18 @@
 This Arduino project is not supported by Infineon Technologies AG. Motivation of this platform was to support open research activities. <br> If you need support with Infineon products like the power modules, gate drivers, do not hesitate to contact your local sales representative and/or the official support.
 
 # HybridPACK_Inverter_OpenLoop_Arduino
-Open loop inverter testing. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino. The Arduino will reset gate drivers and start with softstart ramp the open loop inverter operation. Supported Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs. PWM resolution 10ns (PWM module is overclocked to 100MHz, spec 96MHz).
-
+Open loop inverter testing controlled over WiFi. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino per WiFi UDP Message. The Arduino will reset gate drivers and start with a softstart ramp the open loop inverter operation. Supported are Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs.
+* Switching Frequency fsw from 2..60kHz
+* Modulation Index 0..115% (+ overmodulation till 180%)
+* Speed 0..1000 Hz
+* Softstart Rampup-down
+* Predefined run-time adjustable from 0.1s to 1 hour. Direct control possible.
+* IGBT On-Die Temperature Sensor Readings
+* Phase current RMS measurement (low uC calculation power by sqrt implementation with newton raphson)
+* PWM dead time resolution 10ns (note: SAMD21 PWM module is overclocked to 100MHz, spec 96MHz).
+* Supports testing of several Hill-Hold cases and Active Short Circuit
+* Profiles can be logged and re-played again, e.g. for testing same load profiles with different power modules or gate driver settings.
+  
 Illustrative Setup (AI generated with support of some real pictures from Lab Setup)
 ![Overview Inverter OpenLoop Testing](/Pictures/Overview_AIgen.jpg)
 
@@ -20,6 +30,7 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 # Get Started (fast track without MATLAB/Simulink):
 * install the precompiled GUI (only Windows) from folder "CompiledWIN_noMATLAB"
 * start the GUI
+* ensure that firewalls not blocking WiFi access
 * connect Arduino NANO IoT 33 via USB and click the "FlashTool Arduino" button in GUI. Just follow the instructions.
 * disonnect USB cable after flash process!
 * establish a WIFI hotspot with SSID: FUSION; PW: ffffffff
@@ -30,7 +41,7 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 
 # Get Started (MATLAB/Simulink):
 * open "Inverter_Arduino.slx" Simulink model
-* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff
+* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff; 2.4GHz WPA/WPA2-Personal 
 * connect Arduino NANO IoT 33 via USB
 * under Hardware/Deployment => click Build, Beloy & Start
 * Arduino will be flashed and started
