@@ -1,13 +1,11 @@
 # WARNING: HIGH VOLTAGE HAZARD
-*DANGER: This equipment involves lethal voltages. For use by qualified, trained personnel only in a controlled laboratory environment with appropriate safety measures.
+* DANGER: This equipment involves lethal voltages. For use by qualified, trained personnel only in a controlled laboratory environment with appropriate safety measures.
+* USER RESPONSIBILITY: The user assumes all risk and sole responsibility for operation.
+* LIMITATION OF LIABILITY: No claims shall be made for any injury to persons or damage to equipment/property.
+* MANDATORY STARTUP: Regardless of experience, start with a 12V supply only to verify operation and familiarize yourself with the system before applying high voltage.
+* USE AT YOUR OWN RISK.
 
-*USER RESPONSIBILITY: The user assumes all risk and sole responsibility for operation.
-
-*LIMITATION OF LIABILITY: No claims shall be made for any injury to persons or damage to equipment/property.
-
-*MANDATORY STARTUP: Regardless of experience, start with a 12V supply only to verify operation and familiarize yourself with the system before applying high voltage.
-
-*USE AT YOUR OWN RISK.
+This Arduino project is not supported by Infineon Technologies AG. Motivation of this platform was to support open research activities. <br> If you need support with Infineon products like the power modules, gate drivers, do not hesitate to contact your local sales representative and/or the official support.
 
 # HybridPACK_Inverter_OpenLoop_Arduino
 Open loop inverter testing. Send Modulation Idx, Speed, fsw, PWM Deadtime,... to Arduino. The Arduino will reset gate drivers and start with softstart ramp the open loop inverter operation. Supported Space Vector Modulation (SVPWM), Sine SPWM, Third Harmonic Injection (ThiSPWM), several kind of DPWMs. PWM resolution 10ns (PWM module is overclocked to 100MHz, spec 96MHz).
@@ -16,7 +14,7 @@ Illustrative Setup (AI generated with support of some real pictures from Lab Set
 ![Overview Inverter OpenLoop Testing](/Pictures/Overview_AIgen.jpg)
 
 # Motivation and why Arduino:
-Attention: No support by Infineon Technologies. Motivation of this platform was to support open research activities. <br>
+Motivation of this platform was to support open research activities. <br>
 Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Module/Gate Driver Performance. The Arduino plattform is establed for open-source and toolchains are widely available. Wheras it is recommended to use Infineon Aurix Microcontroller for serial applications and closed loop control, the Arduino Nano IoT 33 plattform with WIFI module is convenient tool for lab testing with focus on the power module and gate driver only. Due to the WIFI communication, minimum wiring is required in the Lab. With the Arduino the frequency control is worse than 0.2% and therefore the export control does not fall under the 3A225 category and can be shared open-source. 
 
 # Get Started (fast track without MATLAB/Simulink):
