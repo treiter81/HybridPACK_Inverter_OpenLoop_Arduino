@@ -49,6 +49,10 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 * open GUI. Ensure that PC is in same WIFI than Arduino. You can now click Connect button in GUI and start
 * Control the Inverter open loop. Use a 12V/25W power supply for seamless operation <br>
 
+# Multiple Arduinos running in same WIFI net (requires V1.1.0 or later):
+* After connect click LockComChannel. A special command sequence is sent to Arduino and the communicatoin will be locked to this Key. Only a reset will release the Key.
+* After 1st inverter is operated in locked mode the next one can be started and should be also locked.
+
 
 # Needed Toolchain SW:
 Can be used without MATLAB/Simulink => use precomiled GUI. This GUI includes also precompiled bin file, which can be flashed. <br>
@@ -59,6 +63,8 @@ But recommended with MATLAB/Simulink:
 requires installed <br>
 * MATLAB Support Package for Arduino Hardware <br> 
 * Simulink Support Package for Arduino Hardware <br>
+
+
 
 # Toolchain HW:
 * Arduino Nano IoT 33 <br>
