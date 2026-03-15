@@ -33,7 +33,7 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 * ensure that firewalls not blocking WiFi access
 * connect Arduino NANO IoT 33 via USB and click the "FlashTool Arduino" button in GUI. Just follow the instructions.
 * disonnect USB cable after flash process!
-* establish a WIFI hotspot with SSID: FUSION; PW: ffffffff
+* establish a WIFI hotspot with <b> SSID: FUSION; PW: ffffffff </b> (2.4GHz WPA/WPA2-Personal)
 * connect the PC (running the GUI) to the WIFI. Click reset button on Arduino.
 * after about 5..10s both PC and Arduino should be in WIFI. You can now click Connect button in GUI and start
 * Control the Inverter open loop. Use a 12V/25W power supply for seamless operation
@@ -41,7 +41,7 @@ Open Loop Inverter Testing is crucial for Testing Inverter Hardware and Power Mo
 
 # Get Started (MATLAB/Simulink):
 * open "Inverter_Arduino.slx" Simulink model
-* check your WIFI entries under Hardware Setting: default SSID: FUSION; PW: ffffffff; 2.4GHz WPA/WPA2-Personal 
+* check your WIFI entries under Hardware Setting: default <b>SSID: FUSION; PW: ffffffff </b> (2.4GHz WPA/WPA2-Personal) 
 * connect Arduino NANO IoT 33 via USB
 * under Hardware/Deployment => click Build, Beloy & Start
 * Arduino will be flashed and started
@@ -72,15 +72,14 @@ requires installed <br>
 * Infineon Arduino Interface PCB: EV PCB INT; SP006038346 <br>
 
 Compatible Gate Driver Boards (just some examples): <br>
-* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-FU" target="_blank">EV GB HPD2 FU; SP006070794 (for Si/SiC Fusion Power Modules)</a>  <br>
+* <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-FU" target="_blank"><b>EV GB HPD2 FU; SP006070794 (for Si/SiC Fusion Power Modules)</b></a>  <br>
 * <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SIC" target="_blank">EV GB HPD2 SIC;	SP006056143 (for SiC Power Modules)</a>  <br>
 * <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SI-08" target="_blank">EV GB HPD2 SI 08; SP006038350 (for 750V IGBT Power Modules)</a>  <br>
 * <a href="https://www.infineon.com/evaluation-board/EV-GB-HPD2-SI-12" target="_blank">EV GB HPD2 SI 12; SP006038348 (for 1200V IGBT Power Modules)</a>  <br> 
 
 
-
 Compatible Power Modules (just some examples): <br>
-* FS980R08A7F32B (Si/SiC Fusion Power Module 780V/980A) <br>
+* <a href="https://www.infineon.com/part/FS980R08A7F32B" target="_blank"><b>FS980R08A7F32B (Si/SiC Fusion Power Module 780V/980A)</b></a>  <br>
 * <a href="https://www.infineon.com/part/FS01MR08A8MA2LBC" target="_blank">FS01MR08A8MA2LBC (SiC MOSFET Power Module 750V/1mOhm)</a>  <br>
 * <a href="https://www.infineon.com/part/FS02MR12A8MA2B" target="_blank">FS02MR12A8MA2B (SiC MOSFET Power Module 1200V/2mOhm)</a>  <br>
 * <a href="https://www.infineon.com/part/FS1150R08A8P3LBC" target="_blank">FS1150R08A8P3B (IGBT Power Module 750V/1150A) </a>  <br> 
@@ -90,7 +89,6 @@ Compatible Power Modules (just some examples): <br>
 Information to the Gate Drivers: <br>
 *  <a href="https://www.infineon.com/part/1EDI3035AS" target="_blank">SiC MOSFET and Si/SiC Fusion optimized Gate Driver 1EDI3035AS</a>  <br> 
 *  <a href="https://www.infineon.com/part/1EDI3025AS" target="_blank">IGBT optimized Gate Driver 1EDI3025AS</a>  <br>
-
 
 
 
